@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="docs/public/accounthub-mark.svg" alt="AccountHub" width="96" height="96" />
+
 # AccountHub
 
 **Multi-account OAuth pool & protocol gateway for AI providers**
@@ -29,6 +31,23 @@ It sits **upstream of** API gateways (for example NewAPI): AccountHub owns accou
 > **Independent project.** AccountHub is not affiliated with, branded as, or a continuation of any project named AIClient. That is a separate codebase and product line.
 
 ---
+
+
+
+## Screenshots
+
+<p align="center">
+  <img src="docs/public/screenshots/01-login.png" alt="Login" width="48%" />
+  <img src="docs/public/screenshots/02-dashboard.png" alt="Dashboard" width="48%" />
+</p>
+<p align="center">
+  <img src="docs/public/screenshots/03-providers.png" alt="Providers" width="48%" />
+  <img src="docs/public/screenshots/04-provider-detail.png" alt="Provider detail" width="48%" />
+</p>
+<p align="center">
+  <img src="docs/public/screenshots/07-monitor.png" alt="Monitor" width="48%" />
+  <img src="docs/public/screenshots/05-logs.png" alt="Logs" width="48%" />
+</p>
 
 ## Features
 

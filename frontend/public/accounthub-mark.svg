@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="AccountHub">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="#0b1220"/>
+  <path fill="url(#g)" d="M64 14L22 30v30c0 28.5 17.7 54.8 42 62 24.3-7.2 42-33.5 42-62V30L64 14z"/>
+  <path fill="#0b1220" opacity="0.22" d="M64 28L36 39v23c0 19.2 11.5 37.2 28 43.5 16.5-6.3 28-24.3 28-43.5V39L64 28z"/>
+  <path fill="#eff6ff" d="M58.5 74.5l-12-12 5.7-5.7 6.3 6.3 17.8-17.8 5.7 5.7-23.5 23.5z"/>
+</svg>
