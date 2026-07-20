@@ -293,3 +293,57 @@
     padding: 30px 20px;
   }
 }
+
+
+/* Research / compliance notice on login */
+.research-notice {
+  margin: 0 0 18px;
+  padding: 14px 14px 12px;
+  border: 1px solid rgba(59, 130, 246, 0.28);
+  border-radius: 12px;
+  background: rgba(59, 130, 246, 0.08);
+  color: inherit;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.research-notice-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.research-notice ul {
+  margin: 0 0 8px 18px;
+  padding: 0;
+}
+
+.research-notice li {
+  margin: 4px 0;
+}
+
+.research-notice-links {
+  margin: 0 0 10px;
+  opacity: 0.85;
+  font-size: 12px;
+}
+
+.research-accept {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.research-accept input {
+  margin-top: 3px;
+  flex: 0 0 auto;
+}
+
+.login-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

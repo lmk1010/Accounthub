@@ -44,9 +44,6 @@ export default function Sidebar({ isOpen, onClose }) {
         <NavLink to="/tracing" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
           <i className="fas fa-route"></i> <span>链路追踪</span>
         </NavLink>
-        <NavLink to="/pricing" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
-          <i className="fas fa-calculator"></i> <span>定价计算器</span>
-        </NavLink>
       </nav>
       {/* 底部装饰和功能区 */}
       <div className="sidebar-footer">

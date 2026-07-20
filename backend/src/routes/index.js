@@ -13,7 +13,6 @@ import { logsRouter } from './logs.routes.js';
 import { emailRouter } from './email.routes.js';
 import { monitorRouter } from './monitor.routes.js';
 import { usageRouter } from './usage.routes.js';
-import { pricingRouter } from './pricing.routes.js';
 
 /**
  * 路由匹配器
@@ -39,7 +38,6 @@ export async function handleApiRoutes(method, path, req, res, context) {
         { prefix: '/api/usage', router: usageRouter },
         { prefix: '/api/emails', router: emailRouter },
         { prefix: '/api/monitor', router: monitorRouter },
-        { prefix: '/api/pricing', router: pricingRouter },
         { prefix: '/api/windsurf', router: providerRouter },
         { prefix: '/api/xai', router: providerRouter }
     ];

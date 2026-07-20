@@ -20,7 +20,6 @@ import BadAccounts from './pages/BadAccounts';
 import PoolRequestLogs from './pages/PoolRequestLogs';
 import Monitor from './pages/Monitor';
 import RequestTracing from './pages/RequestTracing';
-import PricingCalculator from './pages/PricingCalculator';
 import ProtectedRoute from './components/ProtectedRoute';
 
 export const router = createBrowserRouter([
@@ -95,10 +94,6 @@ export const router = createBrowserRouter([
       {
         path: 'tracing',
         element: <RequestTracing />,
-      },
-      {
-        path: 'pricing',
-        element: <PricingCalculator />,
       },
     ],
   },
