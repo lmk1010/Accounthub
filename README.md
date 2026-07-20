@@ -10,7 +10,7 @@
 [![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org)
 [![Docker](https://img.shields.io/badge/docker-ready-blue.svg)](https://www.docker.com)
 
-[Features](#features) · [Architecture](#architecture) · [Quick Start](#quick-start) · [One-click install](#one-click-install) · [Docker](#docker) · [Research use](#research-use--disclaimer)
+[Features](#features) · [Supported protocols](#supported-protocols--providers) · [Pricing calculator](#pricing-calculator-mid-price--break-even) · [Quick Start](#quick-start) · [One-click install](#one-click-install) · [Docker](#docker) · [Research use](#research-use--disclaimer)
 
 </div>
 
@@ -60,6 +60,7 @@ It sits **upstream of** API gateways (for example NewAPI): AccountHub owns accou
 - **Channel config** — default models, routing, provider-level switches (e.g. Grok API vs Build)
 - **Ops console** — React admin for pools, accounts, logs, and usage
 - **Database-backed** — MySQL for credentials, pools, and request stats
+- **Pricing calculator** — pool cost / utilization / mid-price & break-even worksheet (operator tool)
 
 ---
 
@@ -92,6 +93,135 @@ It sits **upstream of** API gateways (for example NewAPI): AccountHub owns accou
 ---
 
 
+
+## Supported protocols & providers
+
+AccountHub speaks **client-facing** protocols and routes them to **provider pools**.
+
+### Client protocols (inbound)
+
+| Protocol | Typical paths | Notes |
+|----------|---------------|--------|
+| **OpenAI Chat Completions** | `POST /v1/chat/completions` | Common gateway default |
+| **OpenAI Responses** | `POST /v1/responses`, `POST /v1/responses/compact` | Codex / Responses-style clients |
+| **Anthropic Messages** | `POST /v1/messages` | Claude Code / Anthropic SDKs |
+| **Models** | `GET /v1/models` | OpenAI-compatible listing |
+| **Media (where enabled)** | `/v1/images/*`, `/v1/videos/*` | Provider-dependent |
+
+You can also prefix routes with a provider type when your gateway routes per channel, e.g. `/openai-xai-oauth/v1/chat/completions`.
+
+Auth for the gateway → AccountHub hop uses your configured **`REQUIRED_API_KEY`** (`Authorization: Bearer …` / `x-api-key` style headers depending on client).
+
+### Provider channels (outbound pools)
+
+The admin console manages multi-account pools. Public UI highlights commonly used channels (others may remain in code as experimental):
+
+| Channel key | Role |
+|-------------|------|
+| `openai-codex` | OpenAI Codex OAuth pool |
+| `openai-xai-oauth` | xAI Grok OAuth (API / Build path switch) |
+| `claude-kiro-oauth` / `claude-custom` / `claude-offical` | Claude-family routes |
+| `gemini-cli-oauth` / `gemini-antigravity` / `claude-antigravity` | Gemini-family OAuth |
+| `openai-custom` | Generic OpenAI-compatible upstream |
+| `claude-windsurf` / `openai-windsurf` | Windsurf-related adapters |
+| Droid / Warp / Orchids / AMI | Optional / experimental adapters |
+
+> Prefer **official APIs and documented OAuth**. Experimental adapters can break and may conflict with provider terms — disable what you do not need. See [RESEARCH_USE.md](docs/public/RESEARCH_USE.md).
+
+### Protocol bridge
+
+AccountHub converts between client and provider shapes when needed, for example:
+
+- Anthropic Messages ↔ OpenAI Chat / Responses  
+- OpenAI Chat ↔ provider-native Responses  
+- Usage normalization (including **cache read** vs uncached input) for gateway billing fields  
+
+---
+
+## Pricing calculator (mid-price / break-even)
+
+Admin UI includes a **Pricing Calculator** (Codex-oriented) for research on pool cost vs sell price.  
+It is an **operator worksheet**, not financial advice and not a payment product.
+
+### Symbols
+
+| Symbol | Meaning | Unit |
+|--------|---------|------|
+| **N** | Number of accounts in the active pool | count |
+| **K** | Estimated monthly capacity per account | **USD of quota / account / month** |
+| **U** | Utilization (how much of K is actually burned) | 0–1 |
+| **P** | Sell price charged to downstream (e.g. NewAPI) | **RMB per $1 quota** |
+| **C** | Fully loaded cost per account per month | **RMB / account / month** |
+| **M** | Model mix factor (relative burn intensity) | ~1.0 default |
+| **S** | Safety factor on break-even (buffer) | e.g. 1.3 |
+
+Defaults in the UI (illustrative, not market quotes):
+
+- Codex **Pro** pool sample cost ≈ **¥160 / account / month**  
+- Codex **Plus** ≈ **¥9**, **Free** ≈ **¥0.3** (lab placeholders)  
+- Example sell slider around **¥0.15 / $1 quota** — adjust to your real gateway pricing  
+
+### Core formulas
+
+```text
+Monthly revenue (RMB) = N × K × U × P × M
+Monthly cost    (RMB) = N × C
+Monthly profit  (RMB) = N × (K × U × P × M − C)
+
+Break-even price (with safety):
+  P_min = (C × S) / (K × U × M)
+
+Pure break-even price (S = 1):
+  P_pure = C / (K × U × M)
+
+Break-even utilization:
+  U_min = (C × S) / (K × P × M)
+
+Price safety multiple:
+  safety_x = P / P_min
+```
+
+### How to read “中间价 / mid price”
+
+In ops practice, **mid-price** is a sell point **between pure break-even and a padded break-even**, for example:
+
+```text
+P_mid ≈ (P_pure + P_min) / 2
+      = C × (1 + S) / (2 × K × U × M)
+```
+
+Or, more conservatively, pick **P** so that:
+
+```text
+P ≥ P_min          # above safety break-even
+safety_x ≥ 1.5~3   # UI “safety multiple” band used in the calculator
+```
+
+The calculator also scans grids of **U × P** and reverse-solves **required P** for a target monthly profit.
+
+### Worked example (numbers are examples only)
+
+Assume: `N=10`, `K=12266` ($/mo capacity), `U=0.5`, `C=160` RMB, `M=1`, `S=1.3`.
+
+```text
+P_pure = 160 / (12266 × 0.5 × 1) ≈ ¥0.0261 / $1
+P_min  = 160 × 1.3 / (12266 × 0.5) ≈ ¥0.0339 / $1
+P_mid  ≈ (0.0261 + 0.0339) / 2 ≈ ¥0.030 / $1
+
+If you sell at P = ¥0.15 / $1:
+  safety_x ≈ 0.15 / 0.0339 ≈ 4.4× above padded break-even
+  monthly profit ≈ 10 × (12266 × 0.5 × 0.15 − 160) ≈ ¥7,599
+```
+
+**Always replace K/C/U with your measured pool stats** (the UI can pull live consumption when pricing APIs are configured).  
+AccountHub does not set market prices; your gateway (e.g. NewAPI) owns retail pricing.
+
+### Language note
+
+The admin console UI is primarily **Chinese (`zh-CN`)** today (dates/number formatting and copy).  
+README and legal docs are **English** for open-source clarity. Full i18n packs are welcome contributions.
+
+---
 ## One-click install
 
 > Requires Docker Compose v2. By running the installer you acknowledge the research-use notice.
