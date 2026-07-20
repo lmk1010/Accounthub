@@ -1,0 +1,40 @@
+{
+  "data": {
+    "createGenericStringObject": {
+      "__typename": "CreateGenericStringObjectOutput",
+      "clientId": "",
+      "genericStringObject": {
+        "format": "JsonAIExecutionProfile",
+        "metadata": {
+          "creatorUid": "AM2D9buq7Fd5YT5Gov6kXgJiVn93",
+          "currentEditorUid": null,
+          "isWelcomeObject": false,
+          "lastEditorUid": "AM2D9buq7Fd5YT5Gov6kXgJiVn93",
+          "metadataLastUpdatedTs": "2026-01-21T06:52:16.526504Z",
+          "parent": {
+            "__typename": "Space",
+            "uid": "AM2D9buq7Fd5YT5Gov6kXgJiVn93",
+            "type": "User"
+          },
+          "revisionTs": "2026-01-21T06:52:16.526504Z",
+          "trashedTs": null,
+          "uid": "S5NSezFFexrDPCJZ9oGVjD"
+        },
+        "permissions": {
+          "guests": [],
+          "lastUpdatedTs": "2026-01-21T06:52:16.526504Z",
+          "anyoneLinkSharing": null,
+          "space": {
+            "uid": "AM2D9buq7Fd5YT5Gov6kXgJiVn93",
+            "type": "User"
+          }
+        },
+        "serializedModel": "{\"name\":\"\",\"is_default_profile\":false,\"apply_code_diffs\":\"AlwaysAsk\",\"read_files\":\"AlwaysAsk\",\"execute_commands\":\"AlwaysAsk\",\"write_to_pty\":\"AlwaysAsk\",\"mcp_permissions\":\"AgentDecides\",\"command_denylist\":[{\"AnchoredRegex\":\"^bash(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^fish(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^pwsh(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^sh(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^zsh(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^curl(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^eval(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^exec(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^source(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^wget(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^dig(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^nslookup(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^host(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^ssh(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^scp(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^rsync(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^telnet(\\\\s.*)?$\"},{\"AnchoredRegex\":\"^rm(\\\\s.*)?$\"}],\"command_allowlist\":[],\"directory_allowlist\":[],\"mcp_allowlist\":[],\"mcp_denylist\":[],\"base_model\":\"auto\",\"coding_model\":null,\"cli_agent_model\":\"claude-4-sonnet\",\"autosync_plans_to_warp_drive\":true,\"web_search_enabled\":true}"
+      },
+      "responseContext": {
+        "serverVersion": null
+      },
+      "revisionTs": "2026-01-21T06:52:16.526504Z"
+    }
+  }
+}

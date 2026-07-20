@@ -1,0 +1,42 @@
+HTTP/2 200
+cache-control: no-cache
+content-security-policy: default-src 'self'; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdn.jsdelivr.net www.googletagmanager.com; font-src 'self' fonts.gstatic.com cdn.jsdelivr.net; img-src 'self' data: fonts.gstatic.com *.googleusercontent.com avatars.githubusercontent.com www.googletagmanager.com forms.hsforms.com track.hubspot.com *.reddit.com; object-src 'none'; frame-src 'self' *.warp.dev https://www.recaptcha.net/recaptcha/ https://recaptcha.google.com/recaptcha/; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.warp.dev securetoken.googleapis.com apis.google.com www.googletagmanager.com cdn.jsdelivr.net *.verisoul.ai js.hs-scripts.com js.hscollectedforms.net js.hs-banner.com js.hs-analytics.net *.mountain.com *.tvads.ai https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://www.gstatic.cn/recaptcha/ *.redditstatic.com *.reddit.com pixel.byspotify.com; worker-src 'self' blob: data:; report-uri /csp-report; connect-src 'self' https: wss: securetoken.googleapis.com api.rudderstack.com http://localhost:9277; frame-ancestors 'self'
+content-type: text/event-stream;charset=utf-8
+set-cookie: rl_anonymous_id=4b9c5cba-0ce2-4c3e-b4d0-fee255117850; Path=/; Domain=warp.dev; Max-Age=31536000
+x-frame-options: DENY
+date: Wed, 21 Jan 2026 03:22:23 GMT
+server: Google Frontend
+traceparent: 00-2caa5443b40581f1a39d286a77c19aa9-c05c72f0abecc05a-00
+x-cloud-trace-context: 2caa5443b40581f1a39d286a77c19aa9/13861080131141681242
+via: 1.1 google
+x-xss-protection: 1; mode=block
+cross-origin-opener-policy: same-origin-allow-popups
+permissions-policy: camera=(), microphone=(), geolocation=()
+referrer-policy: no-referrer
+cross-origin-embedder-policy: unsafe-none
+x-content-type-options: nosniff
+strict-transport-security: max-age=31536000; includeSubDomains
+cross-origin-resource-policy: same-origin
+alt-svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+
+event:data
+data:CkwKJDNhYzMyMmE3LWQ1MzQtNGJhMi05NTU0LWU5MWE1YjA0NjVhMhIkMTUyN2VkZWMtNTM1MC00MjExLTgyZTUtYzU4ZTgxZjhhMmE3
+
+event:data
+data:EskCCsYCGsMCCiQyODA0MWNiMS1kZWNlLTQyZWMtOWQ5Yi1mM2IzZmZmN2UyYjESmgIKJDM0MzZiNjgwLTY5MzEtNGQ2MC1hNDkxLTNjZjNlMDIwYzkzYzoUR2d3STc0ekJ5d1lROE9fY2lnST1aJDI4MDQxY2IxLWRlY2UtNDJlYy05ZDliLWYzYjNmZmY3ZTJiMWokMTUyN2VkZWMtNTM1MC00MjExLTgyZTUtYzU4ZTgxZjhhMmE3cgwI74zBywYQs7e7jAIqgQEKHnRvb2x1XzAxQXpEM0V2YUI3cTI4REdrOUZRR3BwOFpaCjYKIC9Vc2Vycy9saXVtaW5na2FuZy9BSS9NSy9XRUJDaGF0EhIvVXNlcnMvbGl1bWluZ2thbmcSBwoFTWFjT1MaCgoDenNoEgM1LjkiCwjvjMHLBhCAw_FCmgECCgA=
+
+event:data
+data:EgQKAkoA
+
+event:data
+data:EqUCCqICGp8CCiQyODA0MWNiMS1kZWNlLTQyZWMtOWQ5Yi1mM2IzZmZmN2UyYjES9gEKJDljYzQ2MDg3LTM3NjMtNDIzNi1iY2M2LTU2YzI5MzMzYWY2MjpIQ2lSbVlUWTVaR1V3TVMwd05tRXpMVFJqTmpFdE9URm1aaTFtWVRnME5HSmlZakE0TTJVYURBanZqTUhMQmhEdzc5eUtBZz09WiQyODA0MWNiMS1kZWNlLTQyZWMtOWQ5Yi1mM2IzZmZmN2UyYjFqJDE1MjdlZGVjLTUzNTAtNDIxMS04MmU1LWM1OGU4MWY4YTJhN3IMCPGMwcsGEPaSp70DIioKHnRvb2x1XzAxQVVQdlE3Y1g3dDVMcVZLRG1YVlprURIICgAQABgAKAA=
+
+event:data
+data:EqAHCp0HIpoHCosFCiQ5Y2M0NjA4Ny0zNzYzLTQyMzYtYmNjNi01NmMyOTMzM2FmNjI6zANDaVJtWVRZNVpHVXdNUzB3Tm1FekxUUmpOakV0T1RGbVppMW1ZVGcwTkdKaVlqQTRNMlVxc0FJS08tYWZwZWFKdnVXSmplZXJyLWFKZ09hY2lTQktVeTlLVTFnZzVwYUg1THUyNzd5TTVhNmE1TDJONTVtNzViMlY2YUcxNloyaTVMMk41NzJ1RUFBYTdBRlVhR1VnYjNKamFHVnpkSEpoZEc5eUlHVjRaV04xZEdWa0lIUm9hWE1nWTI5dGJXRnVaQ0JtYjNJZ2RHaGxJSEpsWVhOdmJpQm5hWFpsYmlCaVpXeHZkeTRnVDJKelpYSjJaU0IwYUdVZ1kyOXRiV0Z1WkNkeklHOTFkSEIxZENCaGJtUWdaVzV6ZFhKbElIUm9aU0JqYjIxdFlXNWtJR2hoY3lCbGVHbDBaV1FnWW1WbWIzSmxJSEpsY0c5eWRHbHVaeUIwYUdVZ2NtVnNaWFpoYm5RZ2IzVjBjSFYwTGdvS1VtVmhjMjl1T2dybW42WG1pYjdsaVkzbnE2X21pWURtbklrZ1NsTXZTbE5ZSU9hV2gtUzd0dS04ak9XdW11UzlqZWVadS1XOWxlbWh0ZW1kb3VTOWplZTlyaUlBWiQyODA0MWNiMS1kZWNlLTQyZWMtOWQ5Yi1mM2IzZmZmN2UyYjEibgoedG9vbHVfMDFBVVB2UTdjWDd0NUxxVktEbVhWWmtREkwKQmZpbmQgZnJvbnRlbmQvc3JjIC10eXBlIGYgLW5hbWUgIiouanN4IiAtbyAtbmFtZSAiKi5qcyIgfCBoZWFkIC0yMBABGAAoADAAEuMBCiN0b29sX2NhbGwucnVuX3NoZWxsX2NvbW1hbmQuY29tbWFuZAoodG9vbF9jYWxsLnJ1bl9zaGVsbF9jb21tYW5kLmlzX3JlYWRfb25seQomdG9vbF9jYWxsLnJ1bl9zaGVsbF9jb21tYW5kLnVzZXNfcGFnZXIKJHRvb2xfY2FsbC5ydW5fc2hlbGxfY29tbWFuZC5pc19yaXNreQoTc2VydmVyX21lc3NhZ2VfZGF0YQovdG9vbF9jYWxsLnJ1bl9zaGVsbF9jb21tYW5kLndhaXRfdW50aWxfY29tcGxldGUaJDI4MDQxY2IxLWRlY2UtNDJlYy05ZDliLWYzYjNmZmY3ZTJiMQ==
+
+event:data
+data:EgQKAlIA
+
+event:data
+data:GpsBUgUNO_wRP1qPAQ2YL-89EAAdaPmbQCIXChFDbGF1ZGUgU29ubmV0IDQuNRD17QUqOAoECAQQAxICCAIaAggAIgIIACoCCAEyCAgAEAAYACAAOgIIAEICCABKAggAUgIIAFoCCABiAggAMi4KEUNsYXVkZSBTb25uZXQgNC41EhkQ9e0FGhMKDXByaW1hcnlfYWdlbnQQ9e0FEgA=
+

@@ -1,0 +1,14 @@
+docker run -d \
+  --name redis-core \
+  --network charity-network \
+  --restart unless-stopped \
+  -p 6379:6379 \
+  --ulimit nofile=65535:65535 \
+  -v /opt/redis/data:/data \
+  -v /opt/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf \
+  --health-cmd='redis-cli -a N7xPqM4ZL9A2TKe8 ping | grep PONG' \
+  --health-interval=15s \
+  --health-timeout=3s \
+  --health-retries=3 \
+  redis:7.2 \
+  redis-server /usr/local/etc/redis/redis.conf

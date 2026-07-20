@@ -1,0 +1,321 @@
+.potluck-admin-page {
+  width: 100%;
+}
+
+.potluck-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.potluck-header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.potluck-subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+.potluck-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.potluck-actions .btn {
+  padding: 0.5rem 0.875rem;
+  font-size: 0.75rem;
+  gap: 0.35rem;
+}
+
+.potluck-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.stat-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.stat-icon.primary {
+  color: var(--primary-color);
+  background: var(--primary-10);
+}
+
+.stat-icon.success {
+  color: var(--success-color);
+  background: var(--success-10);
+}
+
+.stat-icon.warning {
+  color: var(--warning-color);
+  background: var(--warning-bg);
+}
+
+.stat-icon.info {
+  color: var(--info-color);
+  background: var(--info-bg);
+}
+
+.stat-icon.secondary {
+  color: var(--secondary-color);
+  background: var(--warning-15);
+}
+
+.stat-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.stat-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.potluck-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.potluck-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.9rem;
+  padding: 0.75rem 1rem 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.potluck-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.potluck-card-header h2 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.potluck-card-header p {
+  margin: 0.2rem 0 0;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.potluck-card-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.potluck-card-actions .btn {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.7rem;
+}
+
+.potluck-config-form,
+.potluck-create-form {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.potluck-config-form .form-group,
+.potluck-create-form .form-group {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.potluck-config-form label,
+.potluck-create-form label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.potluck-config-form .form-control,
+.potluck-create-form .form-control {
+  border-radius: 0.6rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.potluck-card .potluck-filter select {
+  border-radius: 0.6rem;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  font-size: 0.72rem;
+  padding: 0.35rem 0.6rem;
+}
+
+.potluck-search {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.6rem;
+  background: var(--bg-secondary);
+  padding: 0.3rem 0.5rem;
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+}
+
+.potluck-search input {
+  border: none;
+  background: transparent;
+  font-size: 0.72rem;
+  color: var(--text-primary);
+}
+
+.potluck-search input:focus {
+  outline: none;
+}
+
+.potluck-key-list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.potluck-key-row {
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  border-radius: 0.8rem;
+  padding: 0.6rem 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.key-main {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 220px;
+  flex: 1;
+}
+
+.key-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.key-name {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.key-status {
+  font-size: 0.65rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.key-status.enabled {
+  background: var(--success-bg);
+  color: var(--success-text);
+}
+
+.key-status.disabled {
+  background: var(--danger-bg);
+  color: var(--danger-text);
+}
+
+.key-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.key-full {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}
+
+.key-value {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  color: var(--text-primary);
+}
+
+.key-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: flex-start;
+}
+
+.potluck-empty {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--text-secondary);
+}
+
+.alert {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.8125rem;
+}
+
+.alert-error {
+  background: var(--danger-bg-alt);
+  border: 1px solid var(--danger-border-light);
+  color: var(--danger-text);
+}
+
+.alert-info {
+  background: var(--info-bg-alt);
+  border: 1px solid var(--info-border);
+  color: var(--info-text);
+}
+
+@media (max-width: 900px) {
+  .potluck-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

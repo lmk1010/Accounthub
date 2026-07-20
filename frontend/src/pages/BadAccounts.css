@@ -1,0 +1,246 @@
+/**
+ * 坏号记录页面样式
+ */
+
+.bad-accounts-page {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.bad-accounts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.bad-accounts-header .header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.bad-accounts-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.bad-accounts-header .header-subtitle {
+    color: var(--text-secondary, #666);
+    font-size: 0.9rem;
+}
+
+.bad-accounts-header .header-right {
+    display: flex;
+    gap: 8px;
+}
+
+.bad-accounts-summary {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.bad-accounts-summary .summary-item {
+    background: var(--bg-secondary, #f5f5f5);
+    border-radius: 8px;
+    padding: 12px 16px;
+    min-width: 100px;
+    text-align: center;
+}
+
+.bad-accounts-summary .summary-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary, #666);
+    margin-bottom: 4px;
+}
+
+.bad-accounts-summary .summary-value {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.bad-accounts-summary .error-type-forbidden {
+    border-left: 3px solid #dc3545;
+}
+
+.bad-accounts-summary .error-type-ratelimit {
+    border-left: 3px solid #fd7e14;
+}
+
+.bad-accounts-summary .error-type-quota {
+    border-left: 3px solid #ffc107;
+}
+
+.bad-accounts-summary .error-type-auth {
+    border-left: 3px solid #6f42c1;
+}
+
+.bad-accounts-filters {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.bad-accounts-filters select {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 6px;
+    background: var(--bg-primary, #fff);
+    min-width: 150px;
+}
+
+.bad-accounts-table-container {
+    background: var(--bg-primary, #fff);
+    border-radius: 8px;
+    border: 1px solid var(--border-color, #ddd);
+    overflow: hidden;
+}
+
+.bad-accounts-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bad-accounts-table th,
+.bad-accounts-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color, #eee);
+}
+
+.bad-accounts-table th {
+    background: var(--bg-secondary, #f8f9fa);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.bad-accounts-table tbody tr:hover {
+    background: var(--bg-hover, #f5f5f5);
+}
+
+.col-checkbox {
+    width: 40px;
+    text-align: center;
+}
+
+.col-name {
+    min-width: 150px;
+}
+
+.col-error {
+    width: 120px;
+}
+
+.col-source {
+    width: 80px;
+}
+
+.col-message {
+    max-width: 300px;
+}
+
+.col-time {
+    width: 160px;
+}
+
+.col-actions {
+    width: 60px;
+    text-align: center;
+}
+
+.record-name {
+    font-weight: 500;
+    word-break: break-all;
+}
+
+.error-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.error-badge.error-type-forbidden {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.error-badge.error-type-ratelimit {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.error-badge.error-type-quota {
+    background: #ffeeba;
+    color: #856404;
+}
+
+.error-badge.error-type-auth {
+    background: #e2d5f1;
+    color: #4a235a;
+}
+
+.error-badge.error-type-unknown {
+    background: #e9ecef;
+    color: #495057;
+}
+
+.source-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    background: #e7f3ff;
+    color: #0066cc;
+}
+
+.error-message {
+    color: var(--text-secondary, #666);
+    font-size: 0.85rem;
+}
+
+.loading-state,
+.empty-state {
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--text-secondary, #666);
+}
+
+.empty-state i {
+    font-size: 3rem;
+    color: #28a745;
+    margin-bottom: 16px;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.bad-accounts-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 20px;
+    padding: 16px;
+}
+
+.pagination-info {
+    color: var(--text-secondary, #666);
+    font-size: 0.9rem;
+}
+
+.btn-xs {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+}

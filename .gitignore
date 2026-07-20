@@ -1,0 +1,74 @@
+# Dependencies
+node_modules/
+
+# Local reference checkouts / experiments (not part of AccountHub)
+/demo
+/AntiHub-ALL-main
+/CLIProxyAPI-main
+/Antigravity-Manager-main
+/OutlookManager-main
+/AIClient-2-API-main
+/aws
+/400dingwei
+/bug-2
+generateAssistantResponse.json
+generateAssistantReqeust.json
+
+# Secrets & local env (keep only *.example tracked)
+.env
+.env.*
+!.env.example
+!**/.env.example
+backend/.env.development
+backend/.env.production
+frontend/.env.development
+frontend/.env.production
+
+# Capture dumps / private traffic samples — never publish
+/zhuabao/
+tmp-*.png
+tmp-*.jpg
+*.pem
+*.key
+
+# Internal commercial / ops analysis (keep private)
+docs/codex-pro-profit-analysis.md
+docs/*profit*
+docs/*-private*
+
+# Dev tools
+cors-proxy.js
+cost-calculator.html
+start-calculator.sh
+
+# Build outputs
+dist/
+build/
+*.log
+logs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Neox / local agent state
+.neox/
+
+# Docs (local only)
+docs/kiro-social-auth-interception.md
+docs/kiro-token-liveness-analysis.md

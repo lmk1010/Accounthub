@@ -1,0 +1,547 @@
+.grok-registration-page {
+  width: 100%;
+  color: var(--text-primary);
+}
+
+.grok-registration-loading {
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.grok-registration-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.grok-registration-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.grok-registration-title-row h1 {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+.grok-registration-title-row span {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.grok-registration-logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.grok-reg-icon-button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.grok-reg-icon-button:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.grok-registration-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 34px;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-secondary);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.grok-registration-status strong {
+  padding-left: 0.45rem;
+  border-left: 1px solid var(--border-color);
+  font-weight: 600;
+}
+
+.grok-reg-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+}
+
+.status-running .grok-reg-status-dot,
+.status-importing .grok-reg-status-dot {
+  background: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-10);
+}
+
+.status-completed .grok-reg-status-dot {
+  background: var(--success-color);
+}
+
+.status-completed_with_errors .grok-reg-status-dot,
+.status-stopping .grok-reg-status-dot,
+.status-stopped .grok-reg-status-dot {
+  background: var(--warning-color);
+}
+
+.status-failed .grok-reg-status-dot {
+  background: var(--danger-color);
+}
+
+.grok-registration-alert {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--danger-color);
+  border-radius: 6px;
+  background: var(--danger-bg-light);
+  color: var(--danger-text);
+  font-size: 0.8rem;
+}
+
+.grok-registration-alert span {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.grok-registration-alert button {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.grok-registration-metrics {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(90px, 1fr));
+  border: 1px solid var(--border-color);
+  border-radius: 6px 6px 0 0;
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+
+.grok-registration-metric {
+  min-height: 62px;
+  padding: 0.65rem 0.8rem;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.15rem;
+}
+
+.grok-registration-metric:last-child {
+  border-right: none;
+}
+
+.grok-registration-metric span {
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+}
+
+.grok-registration-metric strong {
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.grok-registration-workspace {
+  display: grid;
+  grid-template-columns: minmax(380px, 0.9fr) minmax(420px, 1.25fr);
+  min-height: 610px;
+  border: 1px solid var(--border-color);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+.grok-registration-form-pane,
+.grok-registration-log-pane {
+  min-width: 0;
+  padding: 1rem;
+}
+
+.grok-registration-form-pane {
+  border-right: 1px solid var(--border-color);
+  overflow-y: auto;
+}
+
+.grok-registration-log-pane {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-secondary);
+}
+
+.grok-reg-section-heading {
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.grok-reg-section-heading h2 {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0;
+}
+
+.grok-reg-runtime {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.grok-reg-runtime span {
+  padding: 0.2rem 0.4rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  font-size: 0.62rem;
+}
+
+.grok-reg-runtime .ready {
+  border-color: var(--success-color);
+  color: var(--success-color);
+}
+
+.grok-reg-runtime .missing {
+  border-color: var(--warning-color);
+  color: var(--warning-text);
+}
+
+.grok-reg-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.grok-reg-field {
+  min-width: 0;
+}
+
+.grok-reg-field-wide {
+  grid-column: 1 / -1;
+}
+
+.grok-reg-field label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.grok-reg-field input,
+.grok-reg-field select,
+.grok-reg-field textarea {
+  width: 100%;
+  min-height: 38px;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  box-sizing: border-box;
+}
+
+.grok-reg-field textarea {
+  min-height: 110px;
+  resize: vertical;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  line-height: 1.45;
+}
+
+.grok-reg-field input:focus,
+.grok-reg-field select:focus,
+.grok-reg-field textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-10);
+}
+
+.grok-reg-field input:disabled,
+.grok-reg-field select:disabled,
+.grok-reg-field textarea:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.grok-reg-path-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.grok-reg-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.9rem;
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.grok-reg-toggle-row label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.grok-reg-toggle-row input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary-color);
+}
+
+.grok-reg-advanced {
+  margin-top: 0.8rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.8rem;
+}
+
+.grok-reg-advanced summary {
+  margin-bottom: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.grok-reg-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.grok-reg-button {
+  min-height: 38px;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.grok-reg-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.grok-reg-button.primary {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.grok-reg-button.danger {
+  background: var(--danger-color);
+  color: #fff;
+}
+
+.grok-reg-button.secondary {
+  border-color: var(--border-color);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.grok-reg-task-id {
+  color: var(--text-tertiary);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.66rem;
+}
+
+.grok-registration-log {
+  flex: 1;
+  min-height: 500px;
+  max-height: 680px;
+  overflow: auto;
+  padding: 0.75rem;
+  border: 1px solid #2f3742;
+  border-radius: 5px;
+  background: #11151a;
+  color: #d6dde6;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+.grok-registration-log-empty {
+  height: 100%;
+  min-height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7f8996;
+}
+
+.grok-registration-log-line {
+  display: grid;
+  grid-template-columns: 68px minmax(0, 1fr);
+  gap: 0.6rem;
+  padding: 0.12rem 0;
+}
+
+.grok-registration-log-line time {
+  color: #778290;
+  white-space: nowrap;
+}
+
+.grok-registration-log-line span {
+  min-width: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.grok-registration-log-line.level-error span {
+  color: #ff8b8b;
+}
+
+.grok-registration-log-line.level-warning span {
+  color: #ffd37a;
+}
+
+.grok-registration-task-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  color: var(--danger-color);
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1100px) {
+  .grok-registration-metrics {
+    grid-template-columns: repeat(3, minmax(90px, 1fr));
+  }
+
+  .grok-registration-metric:nth-child(3) {
+    border-right: none;
+  }
+
+  .grok-registration-metric:nth-child(-n + 3) {
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .grok-registration-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .grok-registration-form-pane {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+@media (max-width: 640px) {
+  .grok-registration-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .grok-registration-status {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .grok-registration-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grok-registration-metric,
+  .grok-registration-metric:nth-child(3) {
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .grok-registration-metric:nth-child(even) {
+    border-right: none;
+  }
+
+  .grok-registration-metric:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+
+  .grok-registration-workspace {
+    min-height: 0;
+  }
+
+  .grok-registration-form-pane,
+  .grok-registration-log-pane {
+    padding: 0.8rem;
+  }
+
+  .grok-reg-form-grid,
+  .grok-reg-path-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .grok-reg-field-wide {
+    grid-column: auto;
+  }
+
+  .grok-reg-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .grok-reg-runtime {
+    justify-content: flex-start;
+  }
+
+  .grok-reg-actions,
+  .grok-reg-button {
+    width: 100%;
+  }
+
+  .grok-registration-log {
+    min-height: 380px;
+    max-height: 520px;
+  }
+
+  .grok-registration-log-empty {
+    min-height: 340px;
+  }
+}

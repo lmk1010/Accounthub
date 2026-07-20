@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "ws": "^8.19.0"
+  },
+  "name": "accounthub",
+  "private": true,
+  "description": "AccountHub monorepo root"
+}

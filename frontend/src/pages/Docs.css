@@ -1,0 +1,248 @@
+.docs-page {
+  width: 100%;
+}
+
+.docs-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.docs-header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.docs-subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+.docs-panel {
+  background: var(--bg-secondary);
+  padding: 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.alert {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.8125rem;
+}
+
+.alert-warning {
+  background: var(--warning-bg-alt);
+  border: 1px solid var(--warning-border);
+  color: var(--warning-text-dark);
+}
+
+.docs-base-info {
+  display: grid;
+  gap: 0.5rem;
+  background: var(--bg-primary);
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.base-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.base-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  min-width: 80px;
+}
+
+.base-value {
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  word-break: break-all;
+  font-family: 'Courier New', monospace;
+}
+
+.docs-provider-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.docs-provider {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.docs-provider-summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.docs-provider-summary::-webkit-details-marker {
+  display: none;
+}
+
+.provider-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.provider-title i {
+  color: var(--primary-color);
+  font-size: 0.9rem;
+}
+
+.provider-badge {
+  font-size: 0.6875rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+}
+
+.provider-badge.oauth {
+  background: var(--primary-10);
+  color: var(--primary-color);
+}
+
+.provider-badge.official {
+  background: var(--info-bg);
+  color: var(--info-text);
+}
+
+.docs-provider-body {
+  padding: 0.75rem 1rem 1rem;
+}
+
+.protocol-tabs {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.protocol-tab {
+  padding: 0.25rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.protocol-tab:hover {
+  background: var(--bg-tertiary);
+}
+
+.protocol-tab.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.endpoint-info {
+  margin-bottom: 0.5rem;
+}
+
+.endpoint-info label,
+.usage-example label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.endpoint-path {
+  font-size: 0.8rem;
+  background: var(--bg-tertiary);
+  padding: 0.35rem 0.55rem;
+  border-radius: 0.5rem;
+  font-family: 'Courier New', monospace;
+  color: var(--text-primary);
+  display: inline-block;
+  word-break: break-all;
+}
+
+.usage-example pre {
+  margin: 0;
+  background: var(--code-bg);
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+.usage-example pre code {
+  display: block;
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--code-text);
+  font-family: 'Courier New', monospace;
+}
+
+.docs-tips {
+  margin-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 0.75rem;
+}
+
+.docs-tips summary {
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.docs-tips ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.docs-tips li {
+  margin-bottom: 0.35rem;
+}
+
+@media (max-width: 900px) {
+  .docs-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .docs-panel {
+    padding: 1rem;
+  }
+
+  .docs-provider-summary {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

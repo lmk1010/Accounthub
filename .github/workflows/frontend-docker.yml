@@ -1,0 +1,134 @@
+name: Build and Deploy Frontend
+run-name: Redeploy rollback frontend from ${{ github.ref_name }} at ${{ github.sha }}
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - develop_new
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/frontend-docker.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: accounthub-frontend-production
+  cancel-in-progress: false
+
+env:
+  REGISTRY: docker.io
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/accounthub-frontend
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          file: ./frontend/Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+            CURRENT_CONTAINER="accounthub-frontend"
+            PREVIOUS_CONTAINER="accounthub-frontend-previous"
+            NGINX_CONFIG="/opt/AccountHub/frontend-nginx.conf"
+
+            rollback() {
+              echo ">>> Rolling back frontend container..."
+              docker rm -f "$CURRENT_CONTAINER" >/dev/null 2>&1 || true
+              if docker inspect "$PREVIOUS_CONTAINER" >/dev/null 2>&1; then
+                docker rename "$PREVIOUS_CONTAINER" "$CURRENT_CONTAINER"
+                docker start "$CURRENT_CONTAINER"
+              fi
+            }
+
+            if [ ! -s "$NGINX_CONFIG" ]; then
+              echo ">>> Required frontend nginx config is missing or empty: $NGINX_CONFIG"
+              exit 1
+            fi
+
+            echo ">>> Pulling frontend image $IMAGE..."
+            docker pull "$IMAGE"
+
+            docker rm -f "$PREVIOUS_CONTAINER" >/dev/null 2>&1 || true
+            if docker inspect "$CURRENT_CONTAINER" >/dev/null 2>&1; then
+              echo ">>> Preserving current frontend for rollback..."
+              docker stop "$CURRENT_CONTAINER"
+              docker rename "$CURRENT_CONTAINER" "$PREVIOUS_CONTAINER"
+            fi
+
+            echo ">>> Starting new frontend container..."
+            if ! docker run -d \
+              --name "$CURRENT_CONTAINER" \
+              --network charity-network \
+              --restart unless-stopped \
+              -p 13001:80 \
+              -v "$NGINX_CONFIG:/etc/nginx/conf.d/default.conf:ro" \
+              "$IMAGE"; then
+              rollback
+              exit 1
+            fi
+
+            echo ">>> Waiting for frontend and API proxy health checks..."
+            READY=0
+            for attempt in $(seq 1 45); do
+              if curl --fail --silent --show-error http://127.0.0.1:13001/ >/dev/null \
+                && curl --fail --silent --show-error \
+                  http://127.0.0.1:13001/api/system/health \
+                  | grep -q '"status":"ok".*"database":"healthy"'; then
+                READY=1
+                break
+              fi
+              sleep 2
+            done
+
+            if [ "$READY" -ne 1 ]; then
+              echo ">>> Frontend health check failed."
+              docker logs --tail 200 "$CURRENT_CONTAINER" || true
+              rollback
+              exit 1
+            fi
+
+            docker rm -f "$PREVIOUS_CONTAINER" >/dev/null 2>&1 || true
+
+            echo ">>> Reloading nginx..."
+            docker exec neox-nginx nginx -s reload || true
+
+            echo ">>> Cleanup old images..."
+            docker image prune -f

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package warp.multi_agent.v1;
+
+option go_package = "github.com/warp/warp-proto-apis/multi_agent/v1";
+
+// Note: FieldOptions extensions removed for protobufjs compatibility
+// Original had: sensitive and internal field options
+// These are metadata annotations only and don't affect wire format

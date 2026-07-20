@@ -1,0 +1,203 @@
+name: Build and Deploy Backend
+run-name: Redeploy rollback backend from ${{ github.ref_name }} at ${{ github.sha }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to build'
+        required: false
+        default: 'develop_new'
+  push:
+    branches:
+      - main
+      - develop_new
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-docker.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: accounthub-backend-production
+  cancel-in-progress: false
+
+env:
+  REGISTRY: docker.io
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/accounthub-backend
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    outputs:
+      source_sha: ${{ steps.source.outputs.sha }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.branch || github.sha }}
+
+      - name: Resolve source commit
+        id: source
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm ci
+
+      - name: Validate Grok registration integration
+        working-directory: backend
+        run: |
+          node --test \
+            test/proxy-routes.test.js \
+            test/xai-core.test.js \
+            test/xai-media.test.js \
+            test/xai-protocol-compat.test.js \
+            test/xai-registration-runner.test.js \
+            test/xai-registration.service.test.js \
+            test/xai-video-routes.test.js
+          node --check src/services/xai-registration.service.js
+          node --check src/ui-modules/xai-registration-api.js
+          python3 -m py_compile \
+            src/scripts/xai-registration-runner.py \
+            src/vendor/xai-registration-engine/register_cli.py \
+            src/vendor/xai-registration-engine/grok_register_ttk.py \
+            src/vendor/xai-registration-engine/tab_pool.py \
+            src/vendor/xai-registration-converter/sso_to_auth_json.py
+
+  build-and-push:
+    needs: validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.validate.outputs.source_sha }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          file: ./backend/Dockerfile
+          push: true
+          platforms: linux/amd64
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.validate.outputs.source_sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    needs:
+      - validate
+      - build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.validate.outputs.source_sha }}"
+            CURRENT_CONTAINER="accounthub-backend"
+            PREVIOUS_CONTAINER="accounthub-backend-previous"
+            ENV_FILE="/root/accounthub-backend.env"
+
+            rollback() {
+              echo ">>> Rolling back backend container..."
+              docker rm -f "$CURRENT_CONTAINER" >/dev/null 2>&1 || true
+              if docker inspect "$PREVIOUS_CONTAINER" >/dev/null 2>&1; then
+                docker rename "$PREVIOUS_CONTAINER" "$CURRENT_CONTAINER"
+                docker start "$CURRENT_CONTAINER"
+              fi
+            }
+
+            if [ ! -s "$ENV_FILE" ]; then
+              echo ">>> Required backend environment file is missing or empty: $ENV_FILE"
+              exit 1
+            fi
+
+            echo ">>> Pulling backend image $IMAGE..."
+            docker pull "$IMAGE"
+
+            docker rm -f "$PREVIOUS_CONTAINER" >/dev/null 2>&1 || true
+            if docker inspect "$CURRENT_CONTAINER" >/dev/null 2>&1; then
+              echo ">>> Preserving current backend for rollback..."
+              docker stop "$CURRENT_CONTAINER"
+              docker rename "$CURRENT_CONTAINER" "$PREVIOUS_CONTAINER"
+            fi
+
+            echo ">>> Starting new backend container..."
+            if ! docker run -d \
+              --name "$CURRENT_CONTAINER" \
+              --network charity-network \
+              --restart unless-stopped \
+              --env-file "$ENV_FILE" \
+              -p 13000:1458 \
+              -p 8085:8085 \
+              -p 8086:8086 \
+              -p 1455:1455 \
+              -p 1458:1458 \
+              -v /opt/AccountHub/configs:/app/configs \
+              -v /opt/AccountHub/logs:/app/logs \
+              -v /opt/windsurf:/opt/windsurf \
+              -e NODE_ENV=production \
+              -e OAUTH_CALLBACK_HOST=localhost \
+              "$IMAGE"; then
+              rollback
+              exit 1
+            fi
+
+            echo ">>> Waiting for backend and Grok runtime health checks..."
+            READY=0
+            for attempt in $(seq 1 45); do
+              if curl --fail --silent --show-error \
+                http://127.0.0.1:13000/api/system/health \
+                | grep -q '"status":"ok".*"database":"healthy"' \
+                && docker exec "$CURRENT_CONTAINER" node -e \
+                "fetch('http://127.0.0.1:3100/master/health').then(r => r.json()).then(v => process.exit(v.status === 'healthy' && v.workers > 0 ? 0 : 1)).catch(() => process.exit(1))" \
+                && docker exec "$CURRENT_CONTAINER" node --input-type=module -e \
+                "const { getXaiRegistrationEnvironment } = await import('./src/services/xai-registration.service.js'); const e = getXaiRegistrationEnvironment(); process.exit([e.registerEngineReady, e.converterReady, e.runnerReady, e.pythonReady, e.chromiumReady, e.displayReady, e.xvfbReady].every(Boolean) ? 0 : 1)"; then
+                READY=1
+                break
+              fi
+              sleep 2
+            done
+
+            if [ "$READY" -ne 1 ]; then
+              echo ">>> Backend health check failed."
+              docker logs --tail 200 "$CURRENT_CONTAINER" || true
+              rollback
+              exit 1
+            fi
+
+            docker rm -f "$PREVIOUS_CONTAINER" >/dev/null 2>&1 || true
+
+            echo ">>> Reloading nginx..."
+            docker exec neox-nginx nginx -s reload || true
+
+            echo ">>> Cleanup old images..."
+            docker image prune -f

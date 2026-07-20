@@ -1,0 +1,159 @@
+/* 自定义下拉框组件样式 */
+.custom-select {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  cursor: pointer;
+  height: 32px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.custom-select-trigger:hover {
+  border-color: var(--primary-color);
+}
+
+.custom-select.open .custom-select-trigger {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-10);
+}
+
+.custom-select-value {
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.custom-select-arrow {
+  font-size: 0.6rem;
+  color: var(--text-tertiary);
+  transition: transform 0.2s;
+  margin-left: 0.5rem;
+}
+
+.custom-select-arrow.rotated {
+  transform: rotate(180deg);
+}
+
+.custom-select-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  max-height: 260px;
+}
+
+/* Portal 模式下 dropdown 用 fixed 定位，样式由 inline style 控制 */
+.custom-select-dropdown-portal {
+  position: fixed;
+  box-sizing: border-box;
+}
+
+/* portal dropdown 继承 small 尺寸 */
+.custom-select-dropdown-portal.small .custom-select-option {
+  padding: 0.3rem 0.4rem;
+  font-size: 0.7rem;
+}
+
+.custom-select-search {
+  padding: 0.35rem;
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.custom-select-search-input {
+  width: 100%;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  font-size: 0.75rem;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.custom-select-search-input:focus {
+  border-color: var(--primary-color);
+}
+
+.custom-select-options {
+  overflow-y: auto;
+  max-height: 200px;
+}
+
+.custom-select-empty {
+  padding: 0.6rem 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  text-align: center;
+}
+
+.custom-select-option {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.custom-select-option:hover {
+  background: var(--bg-secondary);
+}
+
+.custom-select-option.selected {
+  color: var(--primary-color);
+  background: var(--primary-5);
+}
+
+.custom-select-option i {
+  font-size: 0.6rem;
+  width: 12px;
+}
+
+/* small 尺寸 */
+.custom-select.small .custom-select-trigger {
+  height: 28px;
+  padding: 0.25rem 0.4rem;
+}
+
+.custom-select.small .custom-select-value {
+  font-size: 0.75rem;
+}
+
+.custom-select.small .custom-select-option {
+  padding: 0.3rem 0.4rem;
+  font-size: 0.7rem;
+}
+
+/* 禁用状态 */
+.custom-select.disabled .custom-select-trigger {
+  background: var(--bg-secondary);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.custom-select.disabled .custom-select-trigger:hover {
+  border-color: var(--border-color);
+}

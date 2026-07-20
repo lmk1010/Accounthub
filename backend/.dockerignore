@@ -1,0 +1,12 @@
+.env
+.env.*
+.git
+.venv
+coverage
+logs
+node_modules
+npm-debug.log*
+test
+src/**/__pycache__
+src/**/*.pyc
+src/vendor/xai-registration-engine/.venv

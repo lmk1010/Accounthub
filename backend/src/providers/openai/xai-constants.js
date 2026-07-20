@@ -1,0 +1,12 @@
+export const XAI_PROVIDER_TYPE = 'openai-xai-oauth';
+export const XAI_DEFAULT_API_BASE_URL = 'https://api.x.ai/v1';
+export const XAI_DEFAULT_CHAT_BASE_URL = 'https://cli-chat-proxy.grok.com/v1';
+export const XAI_DISCOVERY_URL = 'https://auth.x.ai/.well-known/openid-configuration';
+export const XAI_CLIENT_ID = 'b1a00492-073a-47ea-816f-4c329264a828';
+export const XAI_CLIENT_VERSION = '0.2.101';
+export const XAI_CLIENT_SCOPE = 'openid profile email offline_access grok-cli:access api:access conversations:read conversations:write';
+export const XAI_CLIENT_REFERRER = 'grok-build';
+export const XAI_CLIENT_IDENTIFIER = 'grok-shell';
+export const XAI_CLIENT_MODE = 'headless';
+export const XAI_CLIENT_SURFACE = 'ui';
+export const XAI_DEVICE_GRANT_TYPE = 'urn:ietf:params:oauth:grant-type:device_code';
