@@ -4,6 +4,9 @@ Thanks for helping improve AccountHub.
 
 ## Project identity
 
+Please read [NOTICE.md](NOTICE.md) and [docs/public/RESEARCH_USE.md](docs/public/RESEARCH_USE.md) before contributing features that automate account creation or unofficial provider access.
+
+
 - Product name: **AccountHub**
 - Not affiliated with AIClient or similarly named projects
 - Focus: multi-account OAuth pools + protocol gateway (not a chat UI, not end-user billing)

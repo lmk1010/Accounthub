@@ -1,0 +1,119 @@
+# AccountHub local stack (development / self-host lab)
+#
+# Intended for learning, research, and authorized self-hosted experiments.
+# You are solely responsible for complying with provider Terms of Service
+# and applicable law. See NOTICE.md and docs/public/RESEARCH_USE.md.
+#
+# Quick start:
+#   cp backend/.env.example .env
+#   # edit .env — set strong REQUIRED_API_KEY and DB passwords
+#   docker compose up -d --build
+#   open http://localhost:13001
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: accounthub-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-change-me-root}
+      MYSQL_DATABASE: ${DB_DATABASE:-accounthub}
+      MYSQL_USER: ${DB_USER:-accounthub}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-change-me}
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - accounthub_mysql_data:/var/lib/mysql
+      - ./backend/sql/all_tables.sql:/docker-entrypoint-initdb.d/01-all_tables.sql:ro
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${MYSQL_ROOT_PASSWORD:-change-me-root}"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    container_name: accounthub-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - accounthub_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: accounthub-backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      NODE_ENV: production
+      USE_DATABASE: "true"
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: ${DB_USER:-accounthub}
+      DB_PASSWORD: ${DB_PASSWORD:-change-me}
+      DB_DATABASE: ${DB_DATABASE:-accounthub}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+      REDIS_DB: ${REDIS_DB:-0}
+      REDIS_KEY_PREFIX: ${REDIS_KEY_PREFIX:-accounthub:}
+      REQUIRED_API_KEY: ${REQUIRED_API_KEY:-change-me-admin-or-gateway-key}
+      HOST: 0.0.0.0
+      SERVER_PORT: ${SERVER_PORT:-3000}
+      OAUTH_CALLBACK_HOST: ${OAUTH_CALLBACK_HOST:-localhost}
+      OAUTH_CALLBACK_SCHEME: ${OAUTH_CALLBACK_SCHEME:-http}
+      # Optional provider OAuth public clients (set in .env — never commit real secrets)
+      GEMINI_OAUTH_CLIENT_ID: ${GEMINI_OAUTH_CLIENT_ID:-}
+      GEMINI_OAUTH_CLIENT_SECRET: ${GEMINI_OAUTH_CLIENT_SECRET:-}
+      ANTIGRAVITY_OAUTH_CLIENT_ID: ${ANTIGRAVITY_OAUTH_CLIENT_ID:-}
+      ANTIGRAVITY_OAUTH_CLIENT_SECRET: ${ANTIGRAVITY_OAUTH_CLIENT_SECRET:-}
+    ports:
+      - "${BACKEND_PORT:-13000}:1458"
+      - "${OAUTH_PORT_GEMINI:-8085}:8085"
+      - "${OAUTH_PORT_ANTIGRAVITY:-8086}:8086"
+    volumes:
+      - accounthub_backend_logs:/app/logs
+      - accounthub_backend_configs:/app/configs
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:1458/api/system/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+      start_period: 40s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: accounthub-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "${FRONTEND_PORT:-13001}:80"
+
+volumes:
+  accounthub_mysql_data:
+  accounthub_redis_data:
+  accounthub_backend_logs:
+  accounthub_backend_configs:

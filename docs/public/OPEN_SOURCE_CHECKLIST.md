@@ -29,3 +29,14 @@ AccountHub is an **independent** project. It is not AIClient and does not share 
 6. **Deploy separation**
    - Production deploys should use server-side env files (never bake secrets into the image)
    - Auto-deploy branches for private production should stay separate from the public release branch
+
+
+## Installer & legal pack (public tree)
+
+- [x] `scripts/install.sh` / `scripts/install.bat`
+- [x] `docker-compose.yml`
+- [x] `NOTICE.md`
+- [x] `docs/public/RESEARCH_USE.md`
+- [x] `docs/public/PRIVACY.md`
+- [x] `docs/public/QUICKSTART.md`
+- [x] README one-click section + research disclaimer links

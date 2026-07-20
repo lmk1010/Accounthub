@@ -10,7 +10,7 @@
 [![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org)
 [![Docker](https://img.shields.io/badge/docker-ready-blue.svg)](https://www.docker.com)
 
-[Features](#features) · [Architecture](#architecture) · [Quick Start](#quick-start) · [Docker](#docker) · [Disclaimer](#disclaimer)
+[Features](#features) · [Architecture](#architecture) · [Quick Start](#quick-start) · [One-click install](#one-click-install) · [Docker](#docker) · [Research use](#research-use--disclaimer)
 
 </div>
 
@@ -29,6 +29,8 @@ It is **not** a chat UI and **not** a user-billing panel.
 It sits **upstream of** API gateways (for example NewAPI): AccountHub owns accounts & protocols; the gateway owns end users & billing.
 
 > **Independent project.** AccountHub is not affiliated with, branded as, or a continuation of any project named AIClient. That is a separate codebase and product line.
+>
+> **Research / self-host oriented.** Provided for learning, research, and authorized experiments. You must comply with provider Terms of Service and law. See [NOTICE.md](NOTICE.md), [docs/public/RESEARCH_USE.md](docs/public/RESEARCH_USE.md), and [docs/public/PRIVACY.md](docs/public/PRIVACY.md).
 
 ---
 
@@ -89,6 +91,33 @@ It sits **upstream of** API gateways (for example NewAPI): AccountHub owns accou
 
 ---
 
+
+## One-click install
+
+> Requires Docker Compose v2. By running the installer you acknowledge the research-use notice.
+
+**Linux / macOS**
+
+```bash
+git clone https://github.com/lmk1010/Accounthub.git
+cd Accounthub
+chmod +x scripts/install.sh
+./scripts/install.sh
+```
+
+**Windows**
+
+```bat
+git clone https://github.com/lmk1010/Accounthub.git
+cd Accounthub
+scripts\install.bat
+```
+
+Then open **http://localhost:13001** (API on **http://localhost:13000**).
+
+Full walkthrough: [docs/public/QUICKSTART.md](docs/public/QUICKSTART.md)
+
+---
 ## Quick Start
 
 ### Prerequisites
@@ -167,10 +196,13 @@ Admin UI: `http://localhost:13001`
 
 ```
 AccountHub/
-├── backend/          # API gateway, pools, OAuth, converters
-├── frontend/         # React admin console
-├── docs/             # Design & ops notes (review before public release)
-├── deploy/           # Deployment helpers
+├── backend/                 # API gateway, pools, OAuth, converters
+├── frontend/                # React admin console
+├── scripts/install.sh       # One-click Docker installer (Linux/macOS)
+├── scripts/install.bat      # One-click Docker installer (Windows)
+├── docker-compose.yml       # Local MySQL + Redis + app stack
+├── docs/public/             # Quick start, research use, privacy
+├── NOTICE.md                # Trademarks & research notice
 └── README.md
 ```
 
@@ -187,7 +219,15 @@ AccountHub/
 
 ---
 
-## Disclaimer
+## Research use & disclaimer
+
+AccountHub is distributed for **learning, research, and authorized self-hosted experiments**.
+
+- [NOTICE.md](NOTICE.md) — trademarks, independence, experimental adapters  
+- [docs/public/RESEARCH_USE.md](docs/public/RESEARCH_USE.md) — acceptable use / your responsibilities  
+- [docs/public/PRIVACY.md](docs/public/PRIVACY.md) — self-host privacy guidance  
+- [SECURITY.md](SECURITY.md) — vulnerability reporting  
+
 
 - AccountHub is infrastructure software. **You** must comply with each provider’s Terms of Service and applicable law.
 - Provider names and logos are trademarks of their respective owners; use here is for identification only.
@@ -203,5 +243,6 @@ MIT — see [LICENSE](LICENSE).
 ---
 
 <div align="center">
-  <sub>AccountHub · account pool control plane for AI providers</sub>
+  <sub>AccountHub · account pool control plane for AI providers</sub><br/>
+  <sub>For research & authorized self-hosting · <a href="NOTICE.md">Notice</a> · <a href="docs/public/RESEARCH_USE.md">Research use</a> · <a href="docs/public/PRIVACY.md">Privacy</a></sub>
 </div>
